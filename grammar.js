@@ -1427,10 +1427,10 @@ module.exports = grammar({
       $.END_UNSTRING,
       $.END_EXECUTE,
       $.END_EXEC,
-      $.period
+      $._period
     ),
 
-    period: $ => '.',
+    _period: $ => '.',
 
     _start_handler: $ => choice(
       $.on_exception,
