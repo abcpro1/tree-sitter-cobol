@@ -1418,8 +1418,6 @@ module.exports = grammar({
       $.END_SUBTRACT,
       $.END_WRITE,
       $.END_PERFORM,
-      $.END_IF,
-      $.END_EVALUATE,
       $.END_RETURN,
       $.END_REWRITE,
       $.END_START,
@@ -1446,13 +1444,9 @@ module.exports = grammar({
       $.invalid_key,
       $.not_invalid_key,
 
-      $.evaluate_header,
-      $.when,
-      $.when_other,
+      $.evaluate_statement,
+      $.if_statement,
       $.perform_statement_loop,
-      $.if_header,
-      $.else_if_header,
-      $.else_header,
     ),
 
     copy_statement: $ => seq(
@@ -1888,9 +1882,12 @@ module.exports = grammar({
       )
     ),
 
-    evaluate_header: $ => prec.right(seq(
+    evaluate_statement: $ => prec.right(seq(
       $._EVALUATE,
       sepBy($.evaluate_subject, optional($._ALSO)),
+      repeat($.when),
+      optional($.when_other),
+      optional($.END_EVALUATE),
     )),
 
     evaluate_subject: $ => choice(
@@ -1899,7 +1896,10 @@ module.exports = grammar({
       $.FALSE,
     ),
 
-    when: $ => prec.right(repeat1(seq($._WHEN, $._evaluate_object_list))),
+    // when: $ => prec.right(repeat1(seq($._WHEN, $._evaluate_object_list))),
+    when: $ => seq($._WHEN, $.when_subject, $._statement),
+    when_other: $ => seq($._WHEN_OTHER, $._statement),
+    when_subject: $ => prec.right(repeat1($._evaluate_object_list)),
 
     _evaluate_object_list: $ => prec.right(sepBy($._evaluate_object, optional($._ALSO))),
 
@@ -1909,8 +1909,6 @@ module.exports = grammar({
       $.TRUE,
       $.FALSE
     ),
-
-    when_other: $ => $._WHEN_OTHER,
 
     exit_statement: $ => prec.left(seq(
       $._EXIT,
@@ -1937,19 +1935,24 @@ module.exports = grammar({
     ),
 
 
-    if_header: $ => prec(1, seq(
+    if_statement: $ => prec(1, seq(
       $._IF,
-      field('condition', choice($.expr)),
+      field('condition', $.expr),
       optional($._THEN),
+      field('then', $._statement),
+      repeat($.else_if_branch),
+      optional($.else_branch),
+      optional($.END_IF),
     )),
 
-    else_if_header: $ => prec.right(1, seq(
+    else_if_branch: $ => prec.right(1, seq(
       $._ELSE, $._IF,
-      field('condition', choice($.expr)),
+      field('condition', $.expr),
       optional($._THEN),
+      field('then', $._statement),
     )),
 
-    else_header: $ => $._ELSE,
+    else_branch: $ => seq($._ELSE, optional($._THEN), $._statement),
 
     expr: $ => prec.left(choice(
       seq($.NOT, $.expr),

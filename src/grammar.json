@@ -7245,14 +7245,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "END_IF"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "END_EVALUATE"
-        },
-        {
-          "type": "SYMBOL",
           "name": "END_RETURN"
         },
         {
@@ -7342,31 +7334,15 @@
         },
         {
           "type": "SYMBOL",
-          "name": "evaluate_header"
+          "name": "evaluate_statement"
         },
         {
           "type": "SYMBOL",
-          "name": "when"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "when_other"
+          "name": "if_statement"
         },
         {
           "type": "SYMBOL",
           "name": "perform_statement_loop"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "if_header"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "else_if_header"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "else_header"
         }
       ]
     },
@@ -10134,7 +10110,7 @@
         }
       ]
     },
-    "evaluate_header": {
+    "evaluate_statement": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -10176,6 +10152,37 @@
                 }
               }
             ]
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "when"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "when_other"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "END_EVALUATE"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
         ]
       }
@@ -10198,22 +10205,43 @@
       ]
     },
     "when": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_WHEN"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "when_subject"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_statement"
+        }
+      ]
+    },
+    "when_other": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_WHEN_OTHER"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_statement"
+        }
+      ]
+    },
+    "when_subject": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
         "type": "REPEAT1",
         "content": {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_WHEN"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_evaluate_object_list"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "_evaluate_object_list"
         }
       }
     },
@@ -10274,10 +10302,6 @@
           "name": "FALSE"
         }
       ]
-    },
-    "when_other": {
-      "type": "SYMBOL",
-      "name": "_WHEN_OTHER"
     },
     "exit_statement": {
       "type": "PREC_LEFT",
@@ -10446,7 +10470,7 @@
         }
       ]
     },
-    "if_header": {
+    "if_statement": {
       "type": "PREC",
       "value": 1,
       "content": {
@@ -10460,13 +10484,8 @@
             "type": "FIELD",
             "name": "condition",
             "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "expr"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "expr"
             }
           },
           {
@@ -10480,11 +10499,50 @@
                 "type": "BLANK"
               }
             ]
+          },
+          {
+            "type": "FIELD",
+            "name": "then",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_statement"
+            }
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "else_if_branch"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "else_branch"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "END_IF"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
         ]
       }
     },
-    "else_if_header": {
+    "else_if_branch": {
       "type": "PREC_RIGHT",
       "value": 1,
       "content": {
@@ -10502,13 +10560,8 @@
             "type": "FIELD",
             "name": "condition",
             "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "expr"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "expr"
             }
           },
           {
@@ -10522,13 +10575,42 @@
                 "type": "BLANK"
               }
             ]
+          },
+          {
+            "type": "FIELD",
+            "name": "then",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_statement"
+            }
           }
         ]
       }
     },
-    "else_header": {
-      "type": "SYMBOL",
-      "name": "_ELSE"
+    "else_branch": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_ELSE"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_THEN"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_statement"
+        }
+      ]
     },
     "expr": {
       "type": "PREC_LEFT",
