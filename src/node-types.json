@@ -4459,6 +4459,10 @@
           "named": true
         },
         {
+          "type": "evaluate_statement",
+          "named": true
+        },
+        {
           "type": "execute_statement",
           "named": true
         },
@@ -4472,6 +4476,10 @@
         },
         {
           "type": "goto_statement",
+          "named": true
+        },
+        {
+          "type": "if_statement",
           "named": true
         },
         {
@@ -4563,180 +4571,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "else_if_branch",
-    "named": true,
-    "fields": {
-      "condition": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "expr",
-            "named": true
-          }
-        ]
-      },
-      "then": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "accept_statement",
-            "named": true
-          },
-          {
-            "type": "add_statement",
-            "named": true
-          },
-          {
-            "type": "allocate_statement",
-            "named": true
-          },
-          {
-            "type": "alter_statement",
-            "named": true
-          },
-          {
-            "type": "call_statement",
-            "named": true
-          },
-          {
-            "type": "cancel_statement",
-            "named": true
-          },
-          {
-            "type": "close_statement",
-            "named": true
-          },
-          {
-            "type": "compute_statement",
-            "named": true
-          },
-          {
-            "type": "continue_statement",
-            "named": true
-          },
-          {
-            "type": "delete_statement",
-            "named": true
-          },
-          {
-            "type": "display_statement",
-            "named": true
-          },
-          {
-            "type": "divide_statement",
-            "named": true
-          },
-          {
-            "type": "execute_statement",
-            "named": true
-          },
-          {
-            "type": "exit_statement",
-            "named": true
-          },
-          {
-            "type": "goback_statement",
-            "named": true
-          },
-          {
-            "type": "goto_statement",
-            "named": true
-          },
-          {
-            "type": "initialize_statement",
-            "named": true
-          },
-          {
-            "type": "inspect_statement",
-            "named": true
-          },
-          {
-            "type": "merge_statement",
-            "named": true
-          },
-          {
-            "type": "move_statement",
-            "named": true
-          },
-          {
-            "type": "multiply_statement",
-            "named": true
-          },
-          {
-            "type": "next_sentence_statement",
-            "named": true
-          },
-          {
-            "type": "open_statement",
-            "named": true
-          },
-          {
-            "type": "perform_statement_call_proc",
-            "named": true
-          },
-          {
-            "type": "read_statement",
-            "named": true
-          },
-          {
-            "type": "release_statement",
-            "named": true
-          },
-          {
-            "type": "return_statement",
-            "named": true
-          },
-          {
-            "type": "rewrite_statement",
-            "named": true
-          },
-          {
-            "type": "search_statement",
-            "named": true
-          },
-          {
-            "type": "set_statement",
-            "named": true
-          },
-          {
-            "type": "sort_statement",
-            "named": true
-          },
-          {
-            "type": "start_statement",
-            "named": true
-          },
-          {
-            "type": "stop_statement",
-            "named": true
-          },
-          {
-            "type": "string_statement",
-            "named": true
-          },
-          {
-            "type": "subtract_statement",
-            "named": true
-          },
-          {
-            "type": "unstring_statement",
-            "named": true
-          },
-          {
-            "type": "use_statement",
-            "named": true
-          },
-          {
-            "type": "write_statement",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -5004,30 +4838,6 @@
           "named": true
         },
         {
-          "type": "AND_EQ",
-          "named": true
-        },
-        {
-          "type": "AND_GE",
-          "named": true
-        },
-        {
-          "type": "AND_GT",
-          "named": true
-        },
-        {
-          "type": "AND_LE",
-          "named": true
-        },
-        {
-          "type": "AND_LT",
-          "named": true
-        },
-        {
-          "type": "AND_NE",
-          "named": true
-        },
-        {
           "type": "CLASS_NAME",
           "named": true
         },
@@ -5096,30 +4906,6 @@
           "named": true
         },
         {
-          "type": "OR_EQ",
-          "named": true
-        },
-        {
-          "type": "OR_GE",
-          "named": true
-        },
-        {
-          "type": "OR_GT",
-          "named": true
-        },
-        {
-          "type": "OR_LE",
-          "named": true
-        },
-        {
-          "type": "OR_LT",
-          "named": true
-        },
-        {
-          "type": "OR_NE",
-          "named": true
-        },
-        {
           "type": "POSITIVE",
           "named": true
         },
@@ -5144,23 +4930,15 @@
           "named": true
         },
         {
-          "type": "eq",
-          "named": true
-        },
-        {
           "type": "expr",
           "named": true
         },
         {
+          "type": "expr_compare",
+          "named": true
+        },
+        {
           "type": "function_",
-          "named": true
-        },
-        {
-          "type": "ge",
-          "named": true
-        },
-        {
-          "type": "gt",
           "named": true
         },
         {
@@ -5176,15 +4954,7 @@
           "named": true
         },
         {
-          "type": "le",
-          "named": true
-        },
-        {
           "type": "linage_counter",
-          "named": true
-        },
-        {
-          "type": "lt",
           "named": true
         },
         {
@@ -5192,7 +4962,393 @@
           "named": true
         },
         {
-          "type": "ne",
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "qualified_word",
+          "named": true
+        },
+        {
+          "type": "refmod",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "subref",
+          "named": true
+        },
+        {
+          "type": "x_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expr_compare",
+    "named": true,
+    "fields": {
+      "lhs": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "&",
+            "named": false
+          },
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "**",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "/",
+            "named": false
+          },
+          {
+            "type": "ALL",
+            "named": true
+          },
+          {
+            "type": "HIGH_VALUE",
+            "named": true
+          },
+          {
+            "type": "LOW_VALUE",
+            "named": true
+          },
+          {
+            "type": "QUOTE",
+            "named": true
+          },
+          {
+            "type": "SPACE",
+            "named": true
+          },
+          {
+            "type": "TOK_NULL",
+            "named": true
+          },
+          {
+            "type": "ZERO",
+            "named": true
+          },
+          {
+            "type": "ZEROS",
+            "named": true
+          },
+          {
+            "type": "^",
+            "named": false
+          },
+          {
+            "type": "function_",
+            "named": true
+          },
+          {
+            "type": "h_string",
+            "named": true
+          },
+          {
+            "type": "linage_counter",
+            "named": true
+          },
+          {
+            "type": "n_string",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "qualified_word",
+            "named": true
+          },
+          {
+            "type": "refmod",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "subref",
+            "named": true
+          },
+          {
+            "type": "x_string",
+            "named": true
+          }
+        ]
+      },
+      "op": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "eq",
+            "named": true
+          },
+          {
+            "type": "ge",
+            "named": true
+          },
+          {
+            "type": "gt",
+            "named": true
+          },
+          {
+            "type": "le",
+            "named": true
+          },
+          {
+            "type": "lt",
+            "named": true
+          },
+          {
+            "type": "ne",
+            "named": true
+          }
+        ]
+      },
+      "rhs": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "&",
+            "named": false
+          },
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "**",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "/",
+            "named": false
+          },
+          {
+            "type": "ALL",
+            "named": true
+          },
+          {
+            "type": "HIGH_VALUE",
+            "named": true
+          },
+          {
+            "type": "LOW_VALUE",
+            "named": true
+          },
+          {
+            "type": "QUOTE",
+            "named": true
+          },
+          {
+            "type": "SPACE",
+            "named": true
+          },
+          {
+            "type": "TOK_NULL",
+            "named": true
+          },
+          {
+            "type": "ZERO",
+            "named": true
+          },
+          {
+            "type": "ZEROS",
+            "named": true
+          },
+          {
+            "type": "^",
+            "named": false
+          },
+          {
+            "type": "function_",
+            "named": true
+          },
+          {
+            "type": "h_string",
+            "named": true
+          },
+          {
+            "type": "linage_counter",
+            "named": true
+          },
+          {
+            "type": "n_string",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "qualified_word",
+            "named": true
+          },
+          {
+            "type": "refmod",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "subref",
+            "named": true
+          },
+          {
+            "type": "x_string",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ALL",
+          "named": true
+        },
+        {
+          "type": "AND_EQ",
+          "named": true
+        },
+        {
+          "type": "AND_GE",
+          "named": true
+        },
+        {
+          "type": "AND_GT",
+          "named": true
+        },
+        {
+          "type": "AND_LE",
+          "named": true
+        },
+        {
+          "type": "AND_LT",
+          "named": true
+        },
+        {
+          "type": "AND_NE",
+          "named": true
+        },
+        {
+          "type": "HIGH_VALUE",
+          "named": true
+        },
+        {
+          "type": "LOW_VALUE",
+          "named": true
+        },
+        {
+          "type": "OR_EQ",
+          "named": true
+        },
+        {
+          "type": "OR_GE",
+          "named": true
+        },
+        {
+          "type": "OR_GT",
+          "named": true
+        },
+        {
+          "type": "OR_LE",
+          "named": true
+        },
+        {
+          "type": "OR_LT",
+          "named": true
+        },
+        {
+          "type": "OR_NE",
+          "named": true
+        },
+        {
+          "type": "QUOTE",
+          "named": true
+        },
+        {
+          "type": "SPACE",
+          "named": true
+        },
+        {
+          "type": "TOK_NULL",
+          "named": true
+        },
+        {
+          "type": "ZERO",
+          "named": true
+        },
+        {
+          "type": "ZEROS",
+          "named": true
+        },
+        {
+          "type": "function_",
+          "named": true
+        },
+        {
+          "type": "h_string",
+          "named": true
+        },
+        {
+          "type": "linage_counter",
+          "named": true
+        },
+        {
+          "type": "n_string",
           "named": true
         },
         {
@@ -6039,6 +6195,16 @@
           }
         ]
       },
+      "else": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "else_branch",
+            "named": true
+          }
+        ]
+      },
       "then": {
         "multiple": false,
         "required": true,
@@ -6092,6 +6258,10 @@
             "named": true
           },
           {
+            "type": "evaluate_statement",
+            "named": true
+          },
+          {
             "type": "execute_statement",
             "named": true
           },
@@ -6105,6 +6275,10 @@
           },
           {
             "type": "goto_statement",
+            "named": true
+          },
+          {
+            "type": "if_statement",
             "named": true
           },
           {
@@ -6199,19 +6373,11 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
           "type": "END_IF",
-          "named": true
-        },
-        {
-          "type": "else_branch",
-          "named": true
-        },
-        {
-          "type": "else_if_branch",
           "named": true
         }
       ]
@@ -14489,6 +14655,10 @@
           "named": true
         },
         {
+          "type": "evaluate_statement",
+          "named": true
+        },
+        {
           "type": "execute_statement",
           "named": true
         },
@@ -14502,6 +14672,10 @@
         },
         {
           "type": "goto_statement",
+          "named": true
+        },
+        {
+          "type": "if_statement",
           "named": true
         },
         {
@@ -14656,6 +14830,10 @@
           "named": true
         },
         {
+          "type": "evaluate_statement",
+          "named": true
+        },
+        {
           "type": "execute_statement",
           "named": true
         },
@@ -14669,6 +14847,10 @@
         },
         {
           "type": "goto_statement",
+          "named": true
+        },
+        {
+          "type": "if_statement",
           "named": true
         },
         {

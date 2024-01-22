@@ -1293,24 +1293,45 @@ module.exports = grammar({
       $._end_statement
     )),
 
-    _procedure_division_contenet: $ => prec.right(choice(
-      seq(
-        optional($._procedure_division_headers),
-        repeat(seq(
-          $._procedure_division_statements_before_header,
-          $._procedure_division_headers,
-        )),
-        repeat1($._procedure_division_statement)
-      ),
-      seq(
-        optional($._procedure_division_headers),
-        repeat1(seq(
-          $._procedure_division_statements_before_header,
-          $._procedure_division_headers,
-        )),
-        repeat($._procedure_division_statement)
-      ),
-    )),
+    // _procedure_division_contenet: $ => prec.right(choice(
+    //   seq(
+    //     optional($._procedure_division_headers),
+    //     repeat(seq(
+    //       $._procedure_division_statements_before_header,
+    //       $._procedure_division_headers,
+    //     )),
+    //     repeat1($._procedure_division_statement)
+    //   ),
+    //   seq(
+    //     optional($._procedure_division_headers),
+    //     repeat1(seq(
+    //       $._procedure_division_statements_before_header,
+    //       $._procedure_division_headers,
+    //     )),
+    //     repeat($._procedure_division_statement)
+    //   ),
+    // )),
+
+    _procedure_division_contenet: $ => seq(
+      optional($._procedure_division_headers),
+      prec.right(
+        choice(
+          seq(
+            repeat(seq(
+              $._procedure_division_statements_before_header,
+              $._procedure_division_headers,
+            )),
+            repeat1($._procedure_division_statement)
+          ),
+          seq(
+            repeat1(seq(
+              $._procedure_division_statements_before_header,
+              $._procedure_division_headers,
+            )),
+            repeat($._procedure_division_statement)
+          ),
+        )
+      )),
 
     _procedure_division_declaratives_content: $ => prec.right(1, choice(
       $._procedure_division_headers,
@@ -1349,12 +1370,12 @@ module.exports = grammar({
       field('name', choice($.WORD, $.integer)),
       $._SECTION,
       optional($._LITERAL),
-      '.'
+      '.',
     ),
 
     paragraph_header: $ => seq(
       field('name', choice($.WORD, $.integer)),
-      '.'
+      '.',
     ),
 
     end_program: $ => prec(1, seq(
@@ -1402,6 +1423,8 @@ module.exports = grammar({
       $.write_statement,
       $.next_sentence_statement,
       $.execute_statement,
+      $.evaluate_statement,
+      $.if_statement,
     ),
 
     _end_statement: $ => choice(
@@ -1443,9 +1466,6 @@ module.exports = grammar({
       $.not_eop,
       $.invalid_key,
       $.not_invalid_key,
-
-      $.evaluate_statement,
-      $.if_statement,
       $.perform_statement_loop,
     ),
 
@@ -1935,29 +1955,32 @@ module.exports = grammar({
     ),
 
 
-    if_statement: $ => prec(1, seq(
+    if_statement: $ => prec.right(1, seq(
       $._IF,
       field('condition', $.expr),
       optional($._THEN),
       field('then', $._statement),
-      repeat($.else_if_branch),
-      optional($.else_branch),
+      field('else', optional($.else_branch)),
       optional($.END_IF),
     )),
 
-    else_if_branch: $ => prec.right(1, seq(
-      $._ELSE, $._IF,
-      field('condition', $.expr),
-      optional($._THEN),
-      field('then', $._statement),
-    )),
+    // else_if_branch: $ => prec.right(1, seq(
+    //   $._ELSE, $._IF,
+    //   field('condition', $.expr),
+    //   optional($._THEN),
+    //   field('then', $._statement),
+    // )),
 
     else_branch: $ => seq($._ELSE, optional($._THEN), $._statement),
 
     expr: $ => prec.left(choice(
       seq($.NOT, $.expr),
       seq($.expr, choice($.AND, $.OR), $.expr),
-      $._expr_bool,
+      $._expr_is,
+      $.expr_compare,
+      $._expr_calc,
+      $.is_class,
+      $.is_not_class,
       seq("(", $.expr, ")")
     )),
 
@@ -1985,7 +2008,7 @@ module.exports = grammar({
       seq('^', $._expr_calc),
     )),
 
-    _expr_compare: $ => //choice(
+    expr_compare: $ => //choice(
       //prec.left(-1, seq($._expr_calc, $.ne, $._expr_calc)),
       //prec.left(-1, seq($._expr_calc, $.eq, $._expr_calc)),
       //prec.left(-1, seq($._expr_calc, $.gt, $._expr_calc)),
@@ -1994,9 +2017,9 @@ module.exports = grammar({
       //prec.left(-1, seq($._expr_calc, $.le, $._expr_calc)),
       //),
       prec.left(-1, seq(
-        $._expr_calc,
-        $._comparator,
-        $._expr_calc,
+        field('lhs', $._expr_calc),
+        field('op', $._comparator),
+        field('rhs', $._expr_calc),
         repeat(seq(
           choice(
             $.AND_LT,
@@ -2043,14 +2066,6 @@ module.exports = grammar({
         $.NOT_ZERO
       ))
     )),
-
-    _expr_bool: $ => choice(
-      $._expr_is,
-      $._expr_compare,
-      $._expr_calc,
-      $.is_class,
-      $.is_not_class,
-    ),
 
     is_class: $ => prec(1, seq(
       field('x', $._x),
