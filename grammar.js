@@ -1973,7 +1973,7 @@ module.exports = grammar({
 
     else_branch: $ => seq($._ELSE, optional($._THEN), $._statement),
 
-    expr: $ => prec.left(choice(
+    expr: $ => prec.left(-2, choice(
       seq($.NOT, $.expr),
       seq($.expr, choice($.AND, $.OR), $.expr),
       $._expr_is,
@@ -1987,25 +1987,25 @@ module.exports = grammar({
     _expr_data: $ => $._x,
 
     _expr_calc: $ => prec(1, choice(
-      $._expr_calc_binary,
-      $._expr_calc_unary,
+      $.expr_bin,
+      $.expr_unary,
       $._expr_data,
       seq("(", $._expr_calc, ")")
     )),
 
-    _expr_calc_binary: $ => choice(
-      prec.left(1, seq($._expr_calc, '+', $._expr_calc)),
-      prec.left(1, seq($._expr_calc, '-', $._expr_calc)),
-      prec.left(2, seq($._expr_calc, '**', $._expr_calc)),
-      prec.left(2, seq($._expr_calc, '*', $._expr_calc)),
-      prec.left(2, seq($._expr_calc, '/', $._expr_calc)),
-      prec.left(3, seq($._expr_calc, '^', $._expr_calc)),
+    expr_bin: $ => choice(
+      prec.left(1, seq(field('lhs', $.expr), field('op', '+'),  field('rhs', $.expr))),
+      prec.left(1, seq(field('lhs', $.expr), field('op', '-'),  field('rhs', $.expr))),
+      prec.left(2, seq(field('lhs', $.expr), field('op', '**'), field('rhs', $.expr))),
+      prec.left(2, seq(field('lhs', $.expr), field('op', '*'),  field('rhs', $.expr))),
+      prec.left(2, seq(field('lhs', $.expr), field('op', '/'),  field('rhs', $.expr))),
+      prec.left(3, seq(field('lhs', $.expr), field('op', '^'),  field('rhs', $.expr))),
     ),
 
-    _expr_calc_unary: $ => prec(4, choice(
-      seq('+', $._expr_calc),
-      seq('-', $._expr_calc),
-      seq('^', $._expr_calc),
+    expr_unary: $ => prec(4, choice(
+      seq(field('op', '+'), field('expr', $.expr)),
+      seq(field('op', '-'), field('expr', $.expr)),
+      seq(field('op', '^'), field('expr', $.expr)),
     )),
 
     expr_compare: $ => //choice(
@@ -2017,9 +2017,9 @@ module.exports = grammar({
       //prec.left(-1, seq($._expr_calc, $.le, $._expr_calc)),
       //),
       prec.left(-1, seq(
-        field('lhs', $._expr_calc),
+        field('lhs', $.expr),
         field('op', $._comparator),
-        field('rhs', $._expr_calc),
+        field('rhs', $.expr),
         repeat(seq(
           choice(
             $.AND_LT,
@@ -2035,7 +2035,7 @@ module.exports = grammar({
             $.OR_EQ,
             $.OR_NE,
           ),
-          $._expr_calc
+          $.expr
         ))
       )),
 
@@ -2257,11 +2257,13 @@ module.exports = grammar({
           choice($._identifier, $._LITERAL)),
         $._identifier,
       )),
-      $._literal,
+      $.expr_literal,
       $.function_,
       $.linage_counter,
       $._identifier,
     ),
+
+    expr_literal: $ => $._literal,
 
     arithmetic_x: $ => seq(
       $._x,
