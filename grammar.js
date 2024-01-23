@@ -1917,8 +1917,8 @@ module.exports = grammar({
     ),
 
     // when: $ => prec.right(repeat1(seq($._WHEN, $._evaluate_object_list))),
-    when: $ => seq($._WHEN, $.when_subject, $._statement),
-    when_other: $ => seq($._WHEN_OTHER, $._statement),
+    when: $ => seq($._WHEN, field('subject', $.when_subject), field('body', $._statement)),
+    when_other: $ => seq($._WHEN_OTHER, field('body', $._statement)),
     when_subject: $ => prec.right(repeat1($._evaluate_object_list)),
 
     _evaluate_object_list: $ => prec.right(sepBy($._evaluate_object, optional($._ALSO))),
