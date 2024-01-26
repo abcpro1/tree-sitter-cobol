@@ -1424,7 +1424,6 @@ module.exports = grammar({
       $.next_sentence_statement,
       $.execute_statement,
       $.evaluate_statement,
-      $.if_statement,
     ),
 
     _end_statement: $ => choice(
@@ -1448,6 +1447,7 @@ module.exports = grammar({
       $.END_UNSTRING,
       $.END_EXECUTE,
       $.END_EXEC,
+      $.END_IF,
       $._period
     ),
 
@@ -1467,6 +1467,10 @@ module.exports = grammar({
       $.invalid_key,
       $.not_invalid_key,
       $.perform_statement_loop,
+
+      $.if_header,
+      $.else_if_header,
+      $.else_header,
     ),
 
     copy_statement: $ => seq(
@@ -1802,15 +1806,15 @@ module.exports = grammar({
     ),
 
     _display_body: $ => prec.right(choice(
-      seq($._id_or_lit, $._UPON_ENVIRONMENT_NAME),
-      seq($._id_or_lit, $._UPON_ENVIRONMENT_VALUE),
-      seq($._id_or_lit, $._UPON_ARGUMENT_NUMBER),
-      seq($._id_or_lit, $._UPON_COMMAND_LINE),
-      seq(repeat1($._x), optional($.at_line_column), optional($.with_clause)),
-      seq(repeat1($._x), optional($.at_line_column), $.UPON, $.MNEMONIC_NAME, optional($.with_clause)),
-      seq(repeat1($._x), optional($.at_line_column), $.UPON, $._WORD, optional($.with_clause)),
-      seq(repeat1($._x), optional($.at_line_column), $.UPON, $.PRINTER, optional($.with_clause)),
-      seq(repeat1($._x), optional($.at_line_column), $.UPON, $.CRT, optional($.with_clause)),
+      seq($.expr, $._UPON_ENVIRONMENT_NAME),
+      seq($.expr, $._UPON_ENVIRONMENT_VALUE),
+      seq($.expr, $._UPON_ARGUMENT_NUMBER),
+      seq($.expr, $._UPON_COMMAND_LINE),
+      seq(repeat1($.expr), optional($.at_line_column), optional($.with_clause)),
+      seq(repeat1($.expr), optional($.at_line_column), $.UPON, $.MNEMONIC_NAME, optional($.with_clause)),
+      seq(repeat1($.expr), optional($.at_line_column), $.UPON, $._WORD, optional($.with_clause)),
+      seq(repeat1($.expr), optional($.at_line_column), $.UPON, $.PRINTER, optional($.with_clause)),
+      seq(repeat1($.expr), optional($.at_line_column), $.UPON, $.CRT, optional($.with_clause)),
     )),
 
     at_line_column: $ => choice(
@@ -1842,7 +1846,7 @@ module.exports = grammar({
 
     _id_or_lit: $ => choice(
       $._identifier,
-      $._literal
+      $.expr_literal
     ),
 
     with_clause: $ => choice(
@@ -1955,23 +1959,30 @@ module.exports = grammar({
     ),
 
 
-    if_statement: $ => prec.right(1, seq(
+//    if_statement: $ => prec.right(1, seq(
+//      $._IF,
+//      field('condition', $.expr),
+//      optional($._THEN),
+//      field('then', prec.right(1, repeat($._statement))),
+//      field('else', prec(10, optional($.else_branch))),
+//      optional($.END_IF),
+//    )),
+//
+//    else_branch: $ => seq($._ELSE, optional($._THEN), $._statement),
+
+    if_header: $ => prec(1, seq(
       $._IF,
-      field('condition', $.expr),
+      field('condition', choice($.expr)),
       optional($._THEN),
-      field('then', $._statement),
-      field('else', optional($.else_branch)),
-      optional($.END_IF),
     )),
 
-    // else_if_branch: $ => prec.right(1, seq(
-    //   $._ELSE, $._IF,
-    //   field('condition', $.expr),
-    //   optional($._THEN),
-    //   field('then', $._statement),
-    // )),
+    else_if_header: $ => prec.right(1, seq(
+      $._ELSE, $._IF,
+      field('condition', choice($.expr)),
+      optional($._THEN),
+    )),
 
-    else_branch: $ => seq($._ELSE, optional($._THEN), $._statement),
+    else_header: $ => $._ELSE,
 
     expr: $ => prec.left(-2, choice(
       seq($.NOT, $.expr),
