@@ -408,14 +408,14 @@ module.exports = grammar({
     input_output_section: $ => choice(
       seq(
         $._INPUT_OUTPUT, $._SECTION, '.',
-        optional($._file_control_paragraph),
-        optional($._i_o_control_paragraph)
+        optional($.file_control_paragraph),
+        optional($.i_o_control_paragraph)
       ),
-      $._file_control_paragraph,
-      $._i_o_control_paragraph,
+      $.file_control_paragraph,
+      $.i_o_control_paragraph,
     ),
 
-    _file_control_paragraph: $ => seq(
+    file_control_paragraph: $ => seq(
       $._FILE_CONTROL, '.',
       repeat($.select_statement)
     ),
@@ -428,7 +428,7 @@ module.exports = grammar({
       '.'
     ),
 
-    _i_o_control_paragraph: $ => seq(
+    i_o_control_paragraph: $ => seq(
       $._I_O_CONTROL, '.', optional($.i_o_control),
     ),
 

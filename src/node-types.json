@@ -4825,6 +4825,21 @@
     }
   },
   {
+    "type": "file_control_paragraph",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "select_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "file_description",
     "named": true,
     "fields": {},
@@ -5546,6 +5561,21 @@
     }
   },
   {
+    "type": "i_o_control_paragraph",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "i_o_control",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "identification_division",
     "named": true,
     "fields": {},
@@ -5846,11 +5876,11 @@
       "required": false,
       "types": [
         {
-          "type": "i_o_control",
+          "type": "file_control_paragraph",
           "named": true
         },
         {
-          "type": "select_statement",
+          "type": "i_o_control_paragraph",
           "named": true
         }
       ]
