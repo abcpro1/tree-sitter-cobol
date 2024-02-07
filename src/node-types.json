@@ -8783,7 +8783,7 @@
     "fields": {}
   },
   {
-    "type": "picture_clause",
+    "type": "picture_cardinality",
     "named": true,
     "fields": {},
     "children": {
@@ -8791,26 +8791,56 @@
       "required": true,
       "types": [
         {
-          "type": "picture_9",
-          "named": true
-        },
-        {
-          "type": "picture_a",
-          "named": true
-        },
-        {
-          "type": "picture_edit",
-          "named": true
-        },
-        {
-          "type": "picture_n",
-          "named": true
-        },
-        {
-          "type": "picture_x",
+          "type": "integer",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "picture_char",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "picture_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "picture_component",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "picture_component",
+    "named": true,
+    "fields": {
+      "cardinality": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "picture_cardinality",
+            "named": true
+          }
+        ]
+      },
+      "char": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "picture_char",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -14436,6 +14466,10 @@
     "fields": {}
   },
   {
+    "type": "$",
+    "named": false
+  },
+  {
     "type": "&",
     "named": false
   },
@@ -14460,6 +14494,10 @@
     "named": false
   },
   {
+    "type": ",",
+    "named": false
+  },
+  {
     "type": "-",
     "named": false
   },
@@ -14469,6 +14507,10 @@
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": "9",
     "named": false
   },
   {
@@ -14496,6 +14538,10 @@
     "named": false
   },
   {
+    "type": "A",
+    "named": false
+  },
+  {
     "type": "AND_EQ",
     "named": true
   },
@@ -14518,6 +14564,26 @@
   {
     "type": "AND_NE",
     "named": true
+  },
+  {
+    "type": "B",
+    "named": false
+  },
+  {
+    "type": "CR",
+    "named": false
+  },
+  {
+    "type": "DB",
+    "named": false
+  },
+  {
+    "type": "E",
+    "named": false
+  },
+  {
+    "type": "G",
+    "named": false
   },
   {
     "type": "HIGH-VALUE",
@@ -14616,6 +14682,10 @@
     "named": false
   },
   {
+    "type": "N",
+    "named": false
+  },
+  {
     "type": "NOT_ALPHABETIC",
     "named": true
   },
@@ -14684,6 +14754,10 @@
     "named": true
   },
   {
+    "type": "P",
+    "named": false
+  },
+  {
     "type": "QUOTE",
     "named": false
   },
@@ -14700,6 +14774,10 @@
     "named": false
   },
   {
+    "type": "S",
+    "named": false
+  },
+  {
     "type": "SPACE",
     "named": false
   },
@@ -14713,6 +14791,22 @@
   },
   {
     "type": "Spaces",
+    "named": false
+  },
+  {
+    "type": "U",
+    "named": false
+  },
+  {
+    "type": "V",
+    "named": false
+  },
+  {
+    "type": "X",
+    "named": false
+  },
+  {
+    "type": "Z",
     "named": false
   },
   {

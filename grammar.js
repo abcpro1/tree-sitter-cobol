@@ -878,6 +878,24 @@ module.exports = grammar({
       repeat(seq($.data_description, repeat1('.')))
     ),
 
+    picture_clause: $ => prec.right(3, seq(
+      choice($._PICTURE, $._PIC),
+      optional($._IS),
+      repeat1($.picture_component)
+    )),
+
+    picture_component: $ => seq(
+      field('char', $.picture_char),
+      optional(field('cardinality', $.picture_cardinality))
+    ),
+
+    picture_char: $ => choice(
+      '$', ',', '.', '*', '**', '+', '-', '<', '>', 
+      '9', 'A', 'B', 'E', 'G', 'N', 'P', 'S', 'U', 'V', 'X', 'Z', 'CR', 'DB'
+    ),
+
+    picture_cardinality: $ => seq('(', $.integer, ')'),
+
     data_description: $ => choice(
       $.constant_entry,
       seq(
@@ -1053,12 +1071,6 @@ module.exports = grammar({
     global_clause: $ => seq(
       optional($._IS),
       $.GLOBAL
-    ),
-
-    picture_clause: $ => seq(
-      choice($._PICTURE, $._PIC),
-      optional($._IS),
-      $._picture_string
     ),
 
     //todo
