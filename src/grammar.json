@@ -4677,18 +4677,6 @@
                 "type": "SYMBOL",
                 "name": "_data_description_clause"
               }
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_LITERAL"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
             }
           ]
         },
@@ -4705,18 +4693,6 @@
                 "type": "SYMBOL",
                 "name": "_data_description_clause"
               }
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_LITERAL"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
             }
           ]
         }

@@ -3253,23 +3253,11 @@
           "named": true
         },
         {
-          "type": "h_string",
-          "named": true
-        },
-        {
           "type": "justified_clause",
           "named": true
         },
         {
           "type": "level_number",
-          "named": true
-        },
-        {
-          "type": "n_string",
-          "named": true
-        },
-        {
-          "type": "number",
           "named": true
         },
         {
@@ -3293,10 +3281,6 @@
           "named": true
         },
         {
-          "type": "string",
-          "named": true
-        },
-        {
           "type": "synchronized_clause",
           "named": true
         },
@@ -3306,10 +3290,6 @@
         },
         {
           "type": "value_clause",
-          "named": true
-        },
-        {
-          "type": "x_string",
           "named": true
         }
       ]

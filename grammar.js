@@ -900,11 +900,11 @@ module.exports = grammar({
       $.constant_entry,
       seq(
         $.level_number, $.entry_name,
-        repeat($._data_description_clause), optional($._LITERAL)
+        repeat($._data_description_clause),
       ),
       seq(
         $.level_number,
-        repeat1($._data_description_clause), optional($._LITERAL)
+        repeat1($._data_description_clause),
       ),
       /*seq(
         $.level_number_88, $.entry_name
