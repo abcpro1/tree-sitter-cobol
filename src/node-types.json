@@ -1490,84 +1490,12 @@
     "type": "add_statement",
     "named": true,
     "fields": {
-      "from": {
+      "expr": {
         "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "&",
-            "named": false
-          },
-          {
-            "type": "HIGH_VALUE",
-            "named": true
-          },
-          {
-            "type": "LOW_VALUE",
-            "named": true
-          },
-          {
-            "type": "QUOTE",
-            "named": true
-          },
-          {
-            "type": "SPACE",
-            "named": true
-          },
-          {
-            "type": "TOK_NULL",
-            "named": true
-          },
-          {
-            "type": "ZERO",
-            "named": true
-          },
-          {
-            "type": "ZEROS",
-            "named": true
-          },
-          {
-            "type": "expr_literal",
-            "named": true
-          },
-          {
-            "type": "function_",
-            "named": true
-          },
-          {
-            "type": "h_string",
-            "named": true
-          },
-          {
-            "type": "linage_counter",
-            "named": true
-          },
-          {
-            "type": "n_string",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "qualified_word",
-            "named": true
-          },
-          {
-            "type": "refmod",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "subref",
-            "named": true
-          },
-          {
-            "type": "x_string",
+            "type": "expr",
             "named": true
           }
         ]
@@ -1577,7 +1505,7 @@
         "required": false,
         "types": [
           {
-            "type": "arithmetic_x",
+            "type": "expr",
             "named": true
           }
         ]
@@ -1587,87 +1515,11 @@
         "required": false,
         "types": [
           {
-            "type": "&",
-            "named": false
-          },
-          {
-            "type": "HIGH_VALUE",
-            "named": true
-          },
-          {
-            "type": "LOW_VALUE",
-            "named": true
-          },
-          {
-            "type": "QUOTE",
-            "named": true
-          },
-          {
             "type": "ROUNDED",
             "named": true
           },
           {
-            "type": "SPACE",
-            "named": true
-          },
-          {
-            "type": "TOK_NULL",
-            "named": true
-          },
-          {
-            "type": "ZERO",
-            "named": true
-          },
-          {
-            "type": "ZEROS",
-            "named": true
-          },
-          {
-            "type": "arithmetic_x",
-            "named": true
-          },
-          {
-            "type": "expr_literal",
-            "named": true
-          },
-          {
-            "type": "function_",
-            "named": true
-          },
-          {
-            "type": "h_string",
-            "named": true
-          },
-          {
-            "type": "linage_counter",
-            "named": true
-          },
-          {
-            "type": "n_string",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "qualified_word",
-            "named": true
-          },
-          {
-            "type": "refmod",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "subref",
-            "named": true
-          },
-          {
-            "type": "x_string",
+            "type": "expr",
             "named": true
           }
         ]
@@ -1935,6 +1787,25 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "and_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "AND",
+          "named": true
+        },
+        {
+          "type": "expr",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4336,10 +4207,6 @@
           "named": true
         },
         {
-          "type": "AND",
-          "named": true
-        },
-        {
           "type": "CLASS_NAME",
           "named": true
         },
@@ -4353,10 +4220,6 @@
         },
         {
           "type": "NEGATIVE",
-          "named": true
-        },
-        {
-          "type": "NOT",
           "named": true
         },
         {
@@ -4404,10 +4267,6 @@
           "named": true
         },
         {
-          "type": "OR",
-          "named": true
-        },
-        {
           "type": "POSITIVE",
           "named": true
         },
@@ -4429,6 +4288,10 @@
         },
         {
           "type": "ZEROS",
+          "named": true
+        },
+        {
+          "type": "and_expr",
           "named": true
         },
         {
@@ -4476,7 +4339,15 @@
           "named": true
         },
         {
+          "type": "not_expr",
+          "named": true
+        },
+        {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "or_expr",
           "named": true
         },
         {
@@ -7973,6 +7844,25 @@
     "fields": {}
   },
   {
+    "type": "not_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "NOT",
+          "named": true
+        },
+        {
+          "type": "expr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "not_invalid_key",
     "named": true,
     "fields": {}
@@ -8304,6 +8194,25 @@
       "types": [
         {
           "type": "open_arg",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "or_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "OR",
+          "named": true
+        },
+        {
+          "type": "expr",
           "named": true
         }
       ]
@@ -12864,88 +12773,22 @@
     "type": "subtract_statement",
     "named": true,
     "fields": {
+      "expr": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "expr",
+            "named": true
+          }
+        ]
+      },
       "from": {
         "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "&",
-            "named": false
-          },
-          {
-            "type": "HIGH_VALUE",
-            "named": true
-          },
-          {
-            "type": "LOW_VALUE",
-            "named": true
-          },
-          {
-            "type": "QUOTE",
-            "named": true
-          },
-          {
-            "type": "SPACE",
-            "named": true
-          },
-          {
-            "type": "TOK_NULL",
-            "named": true
-          },
-          {
-            "type": "ZERO",
-            "named": true
-          },
-          {
-            "type": "ZEROS",
-            "named": true
-          },
-          {
-            "type": "arithmetic_x",
-            "named": true
-          },
-          {
-            "type": "expr_literal",
-            "named": true
-          },
-          {
-            "type": "function_",
-            "named": true
-          },
-          {
-            "type": "h_string",
-            "named": true
-          },
-          {
-            "type": "linage_counter",
-            "named": true
-          },
-          {
-            "type": "n_string",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "qualified_word",
-            "named": true
-          },
-          {
-            "type": "refmod",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "subref",
-            "named": true
-          },
-          {
-            "type": "x_string",
+            "type": "expr",
             "named": true
           }
         ]
@@ -12955,89 +12798,17 @@
         "required": false,
         "types": [
           {
-            "type": "arithmetic_x",
+            "type": "expr",
             "named": true
           }
         ]
       },
       "x": {
-        "multiple": true,
-        "required": true,
+        "multiple": false,
+        "required": false,
         "types": [
           {
-            "type": "&",
-            "named": false
-          },
-          {
-            "type": "HIGH_VALUE",
-            "named": true
-          },
-          {
-            "type": "LOW_VALUE",
-            "named": true
-          },
-          {
-            "type": "QUOTE",
-            "named": true
-          },
-          {
-            "type": "SPACE",
-            "named": true
-          },
-          {
-            "type": "TOK_NULL",
-            "named": true
-          },
-          {
-            "type": "ZERO",
-            "named": true
-          },
-          {
-            "type": "ZEROS",
-            "named": true
-          },
-          {
-            "type": "expr_literal",
-            "named": true
-          },
-          {
-            "type": "function_",
-            "named": true
-          },
-          {
-            "type": "h_string",
-            "named": true
-          },
-          {
-            "type": "linage_counter",
-            "named": true
-          },
-          {
-            "type": "n_string",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "qualified_word",
-            "named": true
-          },
-          {
-            "type": "refmod",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "subref",
-            "named": true
-          },
-          {
-            "type": "x_string",
+            "type": "expr",
             "named": true
           }
         ]

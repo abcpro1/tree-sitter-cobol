@@ -1619,27 +1619,27 @@ module.exports = grammar({
       $._add_body,
     ),
 
-    _add_body: $ => seq(
+    _add_body: $ => prec.left(seq(
       choice(
         seq(
-          field('from', repeat1($._x)),
+          field('expr', repeat1($.expr)),
           $._TO,
-          field('to', repeat1($.arithmetic_x)),
+          field('to', repeat1($.expr)),
         ),
         seq(
-          field('from', repeat1($._x)),
-          field('to', optional(seq($._TO, $._x))),
+          field('expr', repeat1($.expr)),
+          field('to', optional(seq($._TO, $.expr))),
           $._GIVING,
-          field('giving', repeat1($.arithmetic_x)),
+          field('giving', repeat1($.expr)),
         ),
         seq(
           $.CORRESPONDING,
-          field('from', $._identifier),
+          field('expr', $.expr),
           $._TO,
-          field('to', seq($._identifier, optional($.ROUNDED))),
+          field('to', seq($.expr, optional($.ROUNDED))),
         )
       ),
-    ),
+    )),
 
     _size_error_block: $ => nonempty(
       $.on_size_error,
@@ -1997,8 +1997,9 @@ module.exports = grammar({
     else_header: $ => $._ELSE,
 
     expr: $ => prec.left(-2, choice(
-      seq($.NOT, $.expr),
-      seq($.expr, choice($.AND, $.OR), $.expr),
+      $.not_expr,
+      $.and_expr,
+      $.or_expr,
       $._expr_is,
       $.expr_compare,
       $._expr_calc,
@@ -2006,6 +2007,10 @@ module.exports = grammar({
       $.is_not_class,
       seq("(", $.expr, ")")
     )),
+
+    not_expr: $ => prec(7, seq($.NOT, $.expr)),
+    and_expr: $ => prec.left(6, seq($.expr, $.AND, $.expr)),
+    or_expr: $ => prec.left(6, seq($.expr, $.OR, $.expr)),
 
     _expr_data: $ => $._x,
 
@@ -2584,27 +2589,27 @@ module.exports = grammar({
       $._subtract_body,
     ),
 
-    _subtract_body: $ => choice(
-      seq(
-        field('x', repeat1($._x)),
-        $._FROM,
-        choice(
-          field('from', repeat1($.arithmetic_x)),
-          seq(
-            field('from', $._x),
-            $._GIVING,
-            field('giving', repeat1($.arithmetic_x))
-          )
+  _subtract_body: $ => prec.left(choice(
+    seq(
+      field('expr', repeat1($.expr)),
+      $._FROM,
+      choice(
+        field('from', repeat1($.expr)),
+        seq(
+          field('from', $.expr),
+          $._GIVING,
+          field('giving', repeat1($.expr))
         )
-      ),
-      seq(
-        $.CORRESPONDING,
-        field('x', $._identifier),
-        $._FROM,
-        field('from', $._identifier),
-        optional($.ROUNDED),
       )
     ),
+    seq(
+      $.CORRESPONDING,
+      field('x', $.expr),
+      $._FROM,
+      field('from', $.expr),
+      optional($.ROUNDED),
+    )
+  )),
 
     unstring_statement: $ => seq(
       $._UNSTRING,
