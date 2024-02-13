@@ -1818,15 +1818,15 @@ module.exports = grammar({
     ),
 
     _display_body: $ => prec.right(choice(
-      seq($.expr, $._UPON_ENVIRONMENT_NAME),
-      seq($.expr, $._UPON_ENVIRONMENT_VALUE),
-      seq($.expr, $._UPON_ARGUMENT_NUMBER),
-      seq($.expr, $._UPON_COMMAND_LINE),
-      seq(repeat1($.expr), optional($.at_line_column), optional($.with_clause)),
-      seq(repeat1($.expr), optional($.at_line_column), $.UPON, $.MNEMONIC_NAME, optional($.with_clause)),
-      seq(repeat1($.expr), optional($.at_line_column), $.UPON, $._WORD, optional($.with_clause)),
-      seq(repeat1($.expr), optional($.at_line_column), $.UPON, $.PRINTER, optional($.with_clause)),
-      seq(repeat1($.expr), optional($.at_line_column), $.UPON, $.CRT, optional($.with_clause)),
+      seq($._id_or_lit, $._UPON_ENVIRONMENT_NAME),
+      seq($._id_or_lit, $._UPON_ENVIRONMENT_VALUE),
+      seq($._id_or_lit, $._UPON_ARGUMENT_NUMBER),
+      seq($._id_or_lit, $._UPON_COMMAND_LINE),
+      seq(repeat1($._x), optional($.at_line_column), optional($.with_clause)),
+      seq(repeat1($._x), optional($.at_line_column), $.UPON, $.MNEMONIC_NAME, optional($.with_clause)),
+      seq(repeat1($._x), optional($.at_line_column), $.UPON, $._WORD, optional($.with_clause)),
+      seq(repeat1($._x), optional($.at_line_column), $.UPON, $.PRINTER, optional($.with_clause)),
+      seq(repeat1($._x), optional($.at_line_column), $.UPON, $.CRT, optional($.with_clause)),
     )),
 
     at_line_column: $ => choice(
@@ -2008,9 +2008,9 @@ module.exports = grammar({
       seq("(", $.expr, ")")
     )),
 
-    not_expr: $ => prec(7, seq($.NOT, $.expr)),
-    and_expr: $ => prec.left(6, seq($.expr, $.AND, $.expr)),
-    or_expr: $ => prec.left(6, seq($.expr, $.OR, $.expr)),
+    not_expr: $ => prec(7, seq($.NOT, field("expr", $.expr))),
+    and_expr: $ => prec.left(6, seq(field("lhs", $.expr), $.AND, field("rhs", $.expr))),
+    or_expr: $ => prec.left(6, seq(field("lhs", $.expr), $.OR, field("rhs", $.expr))),
 
     _expr_data: $ => $._x,
 
