@@ -4020,22 +4020,6 @@
     "fields": {}
   },
   {
-    "type": "else_if_header",
-    "named": true,
-    "fields": {
-      "condition": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "expr",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "end_function",
     "named": true,
     "fields": {},
@@ -9356,10 +9340,6 @@
           "named": true
         },
         {
-          "type": "else_if_header",
-          "named": true
-        },
-        {
           "type": "eop",
           "named": true
         },
@@ -9676,10 +9656,6 @@
         },
         {
           "type": "else_header",
-          "named": true
-        },
-        {
-          "type": "else_if_header",
           "named": true
         },
         {

@@ -7469,10 +7469,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "else_if_header"
-        },
-        {
-          "type": "SYMBOL",
           "name": "else_header"
         }
       ]
@@ -10623,48 +10619,6 @@
       "content": {
         "type": "SEQ",
         "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_IF"
-          },
-          {
-            "type": "FIELD",
-            "name": "condition",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "expr"
-                }
-              ]
-            }
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_THEN"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    "else_if_header": {
-      "type": "PREC_RIGHT",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_ELSE"
-          },
           {
             "type": "SYMBOL",
             "name": "_IF"

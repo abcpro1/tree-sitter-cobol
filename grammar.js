@@ -1481,7 +1481,6 @@ module.exports = grammar({
       $.perform_statement_loop,
 
       $.if_header,
-      $.else_if_header,
       $.else_header,
     ),
 
@@ -1984,12 +1983,6 @@ module.exports = grammar({
 
     if_header: $ => prec(1, seq(
       $._IF,
-      field('condition', choice($.expr)),
-      optional($._THEN),
-    )),
-
-    else_if_header: $ => prec.right(1, seq(
-      $._ELSE, $._IF,
       field('condition', choice($.expr)),
       optional($._THEN),
     )),
