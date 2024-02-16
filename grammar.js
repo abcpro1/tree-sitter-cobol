@@ -2001,8 +2001,8 @@ module.exports = grammar({
       seq("(", $.expr, ")")
     )),
 
-    not_expr: $ => prec(7, seq($.NOT, field("expr", $.expr))),
-    and_expr: $ => prec.left(6, seq(field("lhs", $.expr), $.AND, field("rhs", $.expr))),
+    not_expr: $ => prec(8, seq($.NOT, field("expr", $.expr))),
+    and_expr: $ => prec.left(7, seq(field("lhs", $.expr), $.AND, field("rhs", $.expr))),
     or_expr: $ => prec.left(6, seq(field("lhs", $.expr), $.OR, field("rhs", $.expr))),
 
     _expr_data: $ => $._x,
