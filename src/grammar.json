@@ -10715,7 +10715,7 @@
     },
     "not_expr": {
       "type": "PREC",
-      "value": 7,
+      "value": 8,
       "content": {
         "type": "SEQ",
         "members": [
@@ -10736,7 +10736,7 @@
     },
     "and_expr": {
       "type": "PREC_LEFT",
-      "value": 6,
+      "value": 7,
       "content": {
         "type": "SEQ",
         "members": [
