@@ -7172,105 +7172,131 @@
     }
   },
   {
+    "type": "move_dst",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "qualified_word",
+          "named": true
+        },
+        {
+          "type": "refmod",
+          "named": true
+        },
+        {
+          "type": "subref",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "move_src",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "HIGH_VALUE",
+          "named": true
+        },
+        {
+          "type": "LOW_VALUE",
+          "named": true
+        },
+        {
+          "type": "QUOTE",
+          "named": true
+        },
+        {
+          "type": "SPACE",
+          "named": true
+        },
+        {
+          "type": "TOK_NULL",
+          "named": true
+        },
+        {
+          "type": "ZERO",
+          "named": true
+        },
+        {
+          "type": "ZEROS",
+          "named": true
+        },
+        {
+          "type": "expr_literal",
+          "named": true
+        },
+        {
+          "type": "function_",
+          "named": true
+        },
+        {
+          "type": "h_string",
+          "named": true
+        },
+        {
+          "type": "linage_counter",
+          "named": true
+        },
+        {
+          "type": "n_string",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "qualified_word",
+          "named": true
+        },
+        {
+          "type": "refmod",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "subref",
+          "named": true
+        },
+        {
+          "type": "x_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "move_statement",
     "named": true,
     "fields": {
       "dst": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "qualified_word",
-            "named": true
-          },
-          {
-            "type": "refmod",
-            "named": true
-          },
-          {
-            "type": "subref",
+            "type": "move_dst",
             "named": true
           }
         ]
       },
       "src": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "&",
-            "named": false
-          },
-          {
-            "type": "HIGH_VALUE",
-            "named": true
-          },
-          {
-            "type": "LOW_VALUE",
-            "named": true
-          },
-          {
-            "type": "QUOTE",
-            "named": true
-          },
-          {
-            "type": "SPACE",
-            "named": true
-          },
-          {
-            "type": "TOK_NULL",
-            "named": true
-          },
-          {
-            "type": "ZERO",
-            "named": true
-          },
-          {
-            "type": "ZEROS",
-            "named": true
-          },
-          {
-            "type": "expr_literal",
-            "named": true
-          },
-          {
-            "type": "function_",
-            "named": true
-          },
-          {
-            "type": "h_string",
-            "named": true
-          },
-          {
-            "type": "linage_counter",
-            "named": true
-          },
-          {
-            "type": "n_string",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "qualified_word",
-            "named": true
-          },
-          {
-            "type": "refmod",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "subref",
-            "named": true
-          },
-          {
-            "type": "x_string",
+            "type": "move_src",
             "named": true
           }
         ]

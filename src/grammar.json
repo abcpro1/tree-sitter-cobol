@@ -12612,7 +12612,7 @@
           "name": "src",
           "content": {
             "type": "SYMBOL",
-            "name": "_x"
+            "name": "move_src"
           }
         },
         {
@@ -12624,10 +12624,18 @@
           "name": "dst",
           "content": {
             "type": "SYMBOL",
-            "name": "_target_x_list"
+            "name": "move_dst"
           }
         }
       ]
+    },
+    "move_src": {
+      "type": "SYMBOL",
+      "name": "_x"
+    },
+    "move_dst": {
+      "type": "SYMBOL",
+      "name": "_target_x_list"
     },
     "_x": {
       "type": "CHOICE",

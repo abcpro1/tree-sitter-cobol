@@ -2261,10 +2261,13 @@ module.exports = grammar({
 
     _move_body: $ => seq(
       optional($._CORRESPONDING),
-      field('src', $._x),
+      field('src', $.move_src),
       $._TO,
-      field('dst', $._target_x_list)
+      field('dst', $.move_dst)
     ),
+
+    move_src: $ => $._x,
+    move_dst: $ => $._target_x_list,
 
     _x: $ => choice(
       seq($._LENGTH, optional($._OF), choice(
