@@ -1821,12 +1821,14 @@ module.exports = grammar({
       seq($._id_or_lit, $._UPON_ENVIRONMENT_VALUE),
       seq($._id_or_lit, $._UPON_ARGUMENT_NUMBER),
       seq($._id_or_lit, $._UPON_COMMAND_LINE),
-      seq(repeat1($._x), optional($.at_line_column), optional($.with_clause)),
-      seq(repeat1($._x), optional($.at_line_column), $.UPON, $.MNEMONIC_NAME, optional($.with_clause)),
-      seq(repeat1($._x), optional($.at_line_column), $.UPON, $._WORD, optional($.with_clause)),
-      seq(repeat1($._x), optional($.at_line_column), $.UPON, $.PRINTER, optional($.with_clause)),
-      seq(repeat1($._x), optional($.at_line_column), $.UPON, $.CRT, optional($.with_clause)),
+      seq(repeat1($.display_arg), optional($.at_line_column), optional($.with_clause)),
+      seq(repeat1($.display_arg), optional($.at_line_column), $.UPON, $.MNEMONIC_NAME, optional($.with_clause)),
+      seq(repeat1($.display_arg), optional($.at_line_column), $.UPON, $._WORD, optional($.with_clause)),
+      seq(repeat1($.display_arg), optional($.at_line_column), $.UPON, $.PRINTER, optional($.with_clause)),
+      seq(repeat1($.display_arg), optional($.at_line_column), $.UPON, $.CRT, optional($.with_clause)),
     )),
+
+    display_arg: $ => $._x,
 
     at_line_column: $ => choice(
       seq(optional($._AT), $.line_number, $.column_number),

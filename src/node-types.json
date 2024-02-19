@@ -3390,7 +3390,7 @@
     }
   },
   {
-    "type": "display_statement",
+    "type": "display_arg",
     "named": true,
     "fields": {},
     "children": {
@@ -3398,23 +3398,11 @@
       "required": false,
       "types": [
         {
-          "type": "CRT",
-          "named": true
-        },
-        {
           "type": "HIGH_VALUE",
           "named": true
         },
         {
           "type": "LOW_VALUE",
-          "named": true
-        },
-        {
-          "type": "MNEMONIC_NAME",
-          "named": true
-        },
-        {
-          "type": "PRINTER",
           "named": true
         },
         {
@@ -3430,19 +3418,11 @@
           "named": true
         },
         {
-          "type": "UPON",
-          "named": true
-        },
-        {
           "type": "ZERO",
           "named": true
         },
         {
           "type": "ZEROS",
-          "named": true
-        },
-        {
-          "type": "at_line_column",
           "named": true
         },
         {
@@ -3486,11 +3466,62 @@
           "named": true
         },
         {
-          "type": "with_clause",
+          "type": "x_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "display_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "CRT",
           "named": true
         },
         {
-          "type": "x_string",
+          "type": "MNEMONIC_NAME",
+          "named": true
+        },
+        {
+          "type": "PRINTER",
+          "named": true
+        },
+        {
+          "type": "UPON",
+          "named": true
+        },
+        {
+          "type": "at_line_column",
+          "named": true
+        },
+        {
+          "type": "display_arg",
+          "named": true
+        },
+        {
+          "type": "expr_literal",
+          "named": true
+        },
+        {
+          "type": "qualified_word",
+          "named": true
+        },
+        {
+          "type": "refmod",
+          "named": true
+        },
+        {
+          "type": "subref",
+          "named": true
+        },
+        {
+          "type": "with_clause",
           "named": true
         }
       ]

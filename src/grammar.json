@@ -9567,7 +9567,7 @@
                 "type": "REPEAT1",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_x"
+                  "name": "display_arg"
                 }
               },
               {
@@ -9603,7 +9603,7 @@
                 "type": "REPEAT1",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_x"
+                  "name": "display_arg"
                 }
               },
               {
@@ -9647,7 +9647,7 @@
                 "type": "REPEAT1",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_x"
+                  "name": "display_arg"
                 }
               },
               {
@@ -9691,7 +9691,7 @@
                 "type": "REPEAT1",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_x"
+                  "name": "display_arg"
                 }
               },
               {
@@ -9735,7 +9735,7 @@
                 "type": "REPEAT1",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_x"
+                  "name": "display_arg"
                 }
               },
               {
@@ -9774,6 +9774,10 @@
           }
         ]
       }
+    },
+    "display_arg": {
+      "type": "SYMBOL",
+      "name": "_x"
     },
     "_id_or_lit": {
       "type": "CHOICE",
