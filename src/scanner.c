@@ -45,7 +45,7 @@ bool start_with_word( TSLexer *lexer, char *words[], int number_of_words) {
 
     while(true) {
         // At the end of the line
-        if(lexer->get_column(lexer) > 71 || lexer->lookahead == '\n' || lexer->lookahead == 0) {
+        if(lexer->get_column(lexer) > 71 || lexer->lookahead == '\n' || lexer->eof(lexer)) {
             return false;
         }
 
@@ -58,7 +58,7 @@ bool start_with_word( TSLexer *lexer, char *words[], int number_of_words) {
         }
 
         if(all_match_failed) {
-            for(; lexer->get_column(lexer) < 71 && lexer->lookahead != '\n' && lexer->lookahead != 0;
+            for(; lexer->get_column(lexer) < 71 && lexer->lookahead != '\n' && !lexer->eof(lexer) ;
             lexer->advance(lexer, true)) {
             }
             return false;
