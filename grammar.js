@@ -30,6 +30,11 @@ module.exports = grammar({
     $._comment,
   ],
 
+  conflicts: $ => [
+    [$.class_condition, $.arithmetic_basis],
+    [$._identifier , $._condition_name_reference],
+  ],
+
   rules: {
     start: $ => choice(
       $.program_definition,
@@ -1985,11 +1990,113 @@ module.exports = grammar({
 
     if_header: $ => prec(1, seq(
       $._IF,
-      field('condition', choice($.expr)),
+      field('condition', $.condition),
       optional($._THEN),
     )),
 
     else_header: $ => $._ELSE,
+
+    condition: $ => choice(
+      $.combined_condition,
+      $._combinable_condition,
+      // TODO:  abbreviated_combined_relation_conditions
+    ),
+
+    combined_condition: $ => choice(
+      prec.left(1, seq(field('lhs', $.condition), field('op', $.OR), field('rhs', $.condition))),
+      prec.left(2, seq(field('lhs', $.condition), field('op', $.AND), field('rhs', $.condition))),
+    ),
+
+    _combinable_condition: $ => choice(
+      $._simple_condition,
+      $.negated_condition,
+      // TODO: abbreviated_combined_relation_condition,
+    ),
+
+    negated_condition: $ => seq($._NOT, $.condition),
+
+    _simple_condition: $ => choice(
+      $.class_condition,
+      $.condition_name_condition,
+      $.relation_condition,
+      $.sign_condition,
+      seq('(', $.condition, ')'),
+    ),
+
+    sign_condition: $ => seq(
+      field('expr', $.arithmetic_expr),
+      optional($._IS),
+      optional(field('negated', $.NOT)),
+      field('word',
+        choice(
+          $.POSITIVE,
+          $.NEGATIVE,
+          $.ZERO,
+        )
+      ),
+    ),
+
+    class_condition: $ => seq(
+      field('expr', $._identifier),
+      optional($._IS),
+      optional(field('negated', $.NOT)),
+      field('word',
+        choice(
+          $.NUMERIC,
+          $.ALPHABETIC,
+          $.ALPHABETIC_LOWER,
+          $.ALPHABETIC_UPPER,
+          $.DBCS,
+          $.KANJI,
+          $.WORD,
+        )
+      ),
+    ),
+
+    condition_name_condition: $ => $._condition_name_reference,
+
+    _condition_name_reference: $ => seq(
+      $.qualified_word,
+      // TODO: subscript
+    ),
+
+    relation_condition: $ => seq(
+      field('lhs', $.arithmetic_expr),
+      field('op', $._comparator),
+      field('rhs', $.arithmetic_expr),
+    ),
+
+    arithmetic_expr: $ => choice(
+      $.add_subtract,
+      $.times_div,
+      $.power,
+      $.arithmetic_basis,
+    ),
+
+    add_subtract: $ => prec.left(1, seq(
+      field('lhs', $.arithmetic_expr),
+      field('op', choice('+', '-')),
+      field('rhs', $.arithmetic_expr)
+    )),
+
+    times_div: $ => prec.left(2, seq(
+      field('lhs', $.arithmetic_expr),
+      field('op', choice('*', '/')),
+      field('rhs', $.arithmetic_expr)
+    )),
+
+    power: $ => seq(
+      optional(field('sign', choice('-', '+'))),
+      field('lhs', $.arithmetic_basis),
+      field('op', '**'),
+      field('rhs', $.arithmetic_basis)
+    ),
+
+    arithmetic_basis: $ => choice(
+      $._identifier,
+      $._basic_literal,
+      seq('(', $.arithmetic_expr, ')'),
+    ),
 
     expr: $ => prec.left(-2, choice(
       $.not_expr,
@@ -2077,16 +2184,6 @@ module.exports = grammar({
         $.POSITIVE,
         $.NEGATIVE,
         $.ZERO,
-
-        $.NOT_OMITTED,
-        $.NOT_NUMERIC,
-        $.NOT_ALPHABETIC,
-        $.NOT_ALPHABETIC_LOWER,
-        $.NOT_ALPHABETIC_UPPER,
-        $.NOT_CLASS_NAME,
-        $.NOT_POSITIVE,
-        $.NOT_NEGATIVE,
-        $.NOT_ZERO
       ))
     )),
 
@@ -2996,6 +3093,7 @@ module.exports = grammar({
     _DATE: $ => /[dD][aA][tT][eE]/,
     _DAY: $ => /[dD][aA][yY]/,
     _DAY_OF_WEEK: $ => /[dD][aA][yY]-[oO][fF]-[wW][eE][eE][kK]/,
+    _DBCS: $ => /[dD][bB][cC][sS]/,
     _DE: $ => /[dD][eE]/,
     _DEBUGGING: $ => /[dD][eE][bB][uU][gG][gG][iI][nN][gG]/,
     _DECIMAL_POINT: $ => /[dD][eE][cC][iI][mM][aA][lL]-[pP][oO][iI][nN][tT]/,
@@ -3119,6 +3217,7 @@ module.exports = grammar({
     _I_O_CONTROL: $ => /[iI]-[oO]-[cC][oO][nN][tT][rR][oO][lL]/,
     _JUST: $ => /[jJ][uU][sS][tT]/,
     _JUSTIFIED: $ => /[jJ][uU][sS][tT][iI][fF][iI][eE][dD]/,
+    _KANJI: $ => /[kK][aA][nN][jJ][iI]/,
     _KEY: $ => /[kK][eE][yY]/,
     _LABEL: $ => /[lL][aA][bB][eE][lL]/,
     _LAST: $ => /[lL][aA][sS][tT]/,
@@ -3466,6 +3565,7 @@ module.exports = grammar({
     DATE: $ => $._DATE,
     DAY: $ => $._DAY,
     DAY_OF_WEEK: $ => $._DAY_OF_WEEK,
+    DBCS: $ => $._DBCS,
     //DE: $ => $._DE,
     //DEBUGGING: $ => $._DEBUGGING,
     //DECIMAL_POINT: $ => $._DECIMAL_POINT,
@@ -3581,6 +3681,7 @@ module.exports = grammar({
     I_O: $ => $._I_O,
     //I_O_CONTROL: $ => $._I_O_CONTROL,
     //JUSTIFIED: $ => $._JUSTIFIED,
+    KANJI: $ => $._KANJI,
     KEY: $ => $._KEY,
     //LABEL: $ => $._LABEL,
     //LAST: $ => $._LAST,
@@ -3829,15 +3930,6 @@ module.exports = grammar({
     _NOT_LESS: $ => /([nN][oO][tT][ \t]+(<|[lL][eE][sS][sS]))/,
     _NOT_GREATER: $ => /([nN][oO][tT][ \t]+(>|[gG][rR][eE][aA][tT][eE][rR]))/,
 
-    NOT_OMITTED: $ => /[nN][oO][tT][ \t]+[oO][mM][iI][tT][tT][eE][dD]/,
-    NOT_NUMERIC: $ => /[nN][oO][tT][ \t]+[nN][uU][mM][eE][rR][iI][cC]/,
-    NOT_ALPHABETIC: $ => /[nN][oO][tT][ \t]+[aA][lL][pP][hH][aA][bB][eE][tT][iI][cC]/,
-    NOT_ALPHABETIC_LOWER: $ => /[nN][oO][tT][ \t]+[aA][lL][pP][hH][aA][bB][eE][tT][iI][cC]-[lL][oO][wW][eE][rR]/,
-    NOT_ALPHABETIC_UPPER: $ => /[nN][oO][tT][ \t]+[aA][lL][pP][hH][aA][bB][eE][tT][iI][cC]-[uU][pP][pP][eE][rR]/,
-    NOT_CLASS_NAME: $ => /[nN][oO][tT][ \t]+[cC][lL][aA][sS][sS]-[nN][aA][mM][eE]/,
-    NOT_POSITIVE: $ => /[nN][oO][tT][ \t]+[pP][oO][sS][iI][tT][iI][vV][eE]/,
-    NOT_NEGATIVE: $ => /[nN][oO][tT][ \t]+[nN][eE][gG][aA][tT][iI][vV][eE]/,
-    NOT_ZERO: $ => /[nN][oO][tT][ \t]+[zZ][eE][rR][oO]/,
     AND_LT: $ => /[aA][nN][dD][ \t]+(<|[lL][eE][sS][sS][ \t]+[tT][hH][aA][nN])/,
     AND_LE: $ => /[aA][nN][dD][ \t]+(<=|[nN][oO][tT][ \t]+(>|[gG][rR][eE][aA][tT][eE][rR][ \t]+[tT][hH][aA][nN]))/,
     AND_GT: $ => /[aA][nN][dD][ \t]+(>|[gG][rR][eE][aA][tT][eE][rR][ \t]+[tT][hH][aA][nN])/,
