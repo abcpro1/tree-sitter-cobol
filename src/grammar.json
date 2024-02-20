@@ -8395,7 +8395,7 @@
                       "type": "REPEAT1",
                       "content": {
                         "type": "SYMBOL",
-                        "name": "expr"
+                        "name": "_x"
                       }
                     }
                   },
@@ -8410,7 +8410,7 @@
                       "type": "REPEAT1",
                       "content": {
                         "type": "SYMBOL",
-                        "name": "expr"
+                        "name": "arithmetic_x"
                       }
                     }
                   }
@@ -8426,7 +8426,7 @@
                       "type": "REPEAT1",
                       "content": {
                         "type": "SYMBOL",
-                        "name": "expr"
+                        "name": "_x"
                       }
                     }
                   },
@@ -8434,23 +8434,23 @@
                     "type": "FIELD",
                     "name": "to",
                     "content": {
-                      "type": "CHOICE",
+                      "type": "SEQ",
                       "members": [
                         {
-                          "type": "SEQ",
+                          "type": "CHOICE",
                           "members": [
                             {
                               "type": "SYMBOL",
                               "name": "_TO"
                             },
                             {
-                              "type": "SYMBOL",
-                              "name": "expr"
+                              "type": "BLANK"
                             }
                           ]
                         },
                         {
-                          "type": "BLANK"
+                          "type": "SYMBOL",
+                          "name": "_x"
                         }
                       ]
                     }
@@ -8466,7 +8466,7 @@
                       "type": "REPEAT1",
                       "content": {
                         "type": "SYMBOL",
-                        "name": "expr"
+                        "name": "arithmetic_x"
                       }
                     }
                   }
@@ -8484,7 +8484,7 @@
                     "name": "expr",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "expr"
+                      "name": "_identifier"
                     }
                   },
                   {
@@ -8499,7 +8499,7 @@
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "expr"
+                          "name": "_identifier"
                         },
                         {
                           "type": "CHOICE",
@@ -14630,7 +14630,7 @@
                   "type": "REPEAT1",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "expr"
+                    "name": "_x"
                   }
                 }
               },
@@ -14648,7 +14648,7 @@
                       "type": "REPEAT1",
                       "content": {
                         "type": "SYMBOL",
-                        "name": "expr"
+                        "name": "arithmetic_x"
                       }
                     }
                   },
@@ -14660,7 +14660,7 @@
                         "name": "from",
                         "content": {
                           "type": "SYMBOL",
-                          "name": "expr"
+                          "name": "_x"
                         }
                       },
                       {
@@ -14674,7 +14674,7 @@
                           "type": "REPEAT1",
                           "content": {
                             "type": "SYMBOL",
-                            "name": "expr"
+                            "name": "arithmetic_x"
                           }
                         }
                       }
@@ -14696,7 +14696,7 @@
                 "name": "x",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "expr"
+                  "name": "_identifier"
                 }
               },
               {
@@ -14708,7 +14708,7 @@
                 "name": "from",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "expr"
+                  "name": "_identifier"
                 }
               },
               {

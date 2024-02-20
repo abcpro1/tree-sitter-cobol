@@ -1621,21 +1621,21 @@ module.exports = grammar({
     _add_body: $ => prec.left(seq(
       choice(
         seq(
-          field('expr', repeat1($.expr)),
+          field('expr', repeat1($._x)),
           $._TO,
-          field('to', repeat1($.expr)),
+          field('to', repeat1($.arithmetic_x)),
         ),
         seq(
-          field('expr', repeat1($.expr)),
-          field('to', optional(seq($._TO, $.expr))),
+          field('expr', repeat1($._x)),
+          field('to', seq(optional($._TO), $._x)),
           $._GIVING,
-          field('giving', repeat1($.expr)),
+          field('giving', repeat1($.arithmetic_x)),
         ),
         seq(
           $.CORRESPONDING,
-          field('expr', $.expr),
+          field('expr', $._identifier),
           $._TO,
-          field('to', seq($.expr, optional($.ROUNDED))),
+          field('to', seq($._identifier, optional($.ROUNDED))),
         )
       ),
     )),
@@ -2589,22 +2589,22 @@ module.exports = grammar({
 
   _subtract_body: $ => prec.left(choice(
     seq(
-      field('expr', repeat1($.expr)),
+      field('expr', repeat1($._x)),
       $._FROM,
       choice(
-        field('from', repeat1($.expr)),
+        field('from', repeat1($.arithmetic_x)),
         seq(
-          field('from', $.expr),
+          field('from', $._x),
           $._GIVING,
-          field('giving', repeat1($.expr))
+          field('giving', repeat1($.arithmetic_x))
         )
       )
     ),
     seq(
       $.CORRESPONDING,
-      field('x', $.expr),
+      field('x', $._identifier),
       $._FROM,
-      field('from', $.expr),
+      field('from', $._identifier),
       optional($.ROUNDED),
     )
   )),
